@@ -63,6 +63,7 @@ export default class userRepository {
             const deletedUser = await prisma.users.delete({
                 where: { Id: parseInt(userId)}
             });
+            
             return deletedUser;
         } catch (err) {
             throw new Error(`Erro ao deletar o usuário -> ${err.message}`);

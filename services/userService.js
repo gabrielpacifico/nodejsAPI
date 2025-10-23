@@ -55,11 +55,14 @@ export default class userService {
 
     async deleteUser(userId) {
         try {
+            const findUser = await repository.getUserById(userId);
+            
+            if(!findUser) {
+                return null;
+            }
+
             const deletedUser = await repository.deleteUser(userId);
 
-            if(!deletedUser) {
-                throw new Error('Usuário com o id informado não existe.');
-            }
             return deletedUser;
         } catch (err) {
             throw new Error(`Erro ao deletar o usuário -> ${err.message}`);

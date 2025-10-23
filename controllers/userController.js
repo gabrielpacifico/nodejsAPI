@@ -44,6 +44,7 @@ export default class UserController {
                     message: "Existem campos vazios, preencha-os."
                 })
             }
+            
             return res.status(201).json({
                 message: "Usuário criado com sucesso.",
                 userCreate,
@@ -70,7 +71,10 @@ export default class UserController {
                 });
             }
 
-            return res.status(200).json(updateUser);
+            return res.status(200).json({
+                message: "Usuário editado com sucesso.",
+                updateUser
+            });
         } catch (err) {
             return res.status(500).json({
                 message: "Erro ao editar o usuário."
@@ -89,7 +93,10 @@ export default class UserController {
                 });
             }
             
-            return res.status(200).json(deleteUser);
+            return res.status(200).json({
+                message: "Usuário deletado com sucesso.",
+                deleteUser
+            });
         } catch (err) {
             return res.status(500).json({
                 message: "Erro ao deletar o usuário."
