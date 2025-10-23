@@ -22,6 +22,16 @@ export default class productService {
         }
     }
 
+    async getProductByName(productName) {
+        try {
+            const product = await repository.getProductByName(productName);
+            
+            return product;
+        } catch (err) {
+            throw new Error(`Erro ao exibir o produto -> ${err.message}`);
+        }
+    }
+
     async createProduct(productData) {
         try {
             const { ProductName, ProductCategory, ProductPrice } = productData;

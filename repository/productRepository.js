@@ -27,6 +27,23 @@ export default class productRepository {
         }
     }
 
+    async getProductByName(productName) {
+        try {
+            const product = await prisma.products.findMany({
+                where: {
+                    ProductName: { 
+                        contains: productName,
+                        mode: 'insensitive'
+                    }
+                }
+            });
+
+            return product;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     async createProduct(productData) {
         try {
             const newProduct = await prisma.products.create({
@@ -57,7 +74,7 @@ export default class productRepository {
             const deletedProduct = await prisma.products.delete({
                 where: { Id: parseInt(productId) }
             });
-            
+
             return deletedProduct;
         } catch (err) {
             throw new Error(`Erro ao deletar o produto -> ${err.message}`);

@@ -34,6 +34,25 @@ export default class productController {
         }
     }
 
+    async getProductByName(req, res) {
+        try {
+            const { productName } = req.params;
+            const searchProduct = await service.getProductByName(productName);
+
+            if(!searchProduct) {
+                return res.status(404).json({
+                    message: `Produto não encontrado.`
+                });
+            }
+
+            return res.status(200).json(searchProduct);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Erro ao buscar o produto."
+            });
+        }
+    }
+
     async createProduct(req, res) {
         try {
             const productData = req.body;
