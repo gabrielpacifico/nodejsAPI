@@ -38,6 +38,12 @@ export default class UserController {
         try {
             const userData = req.body;
             const userCreate = await service.createUser(userData);
+            
+            if(!userCreate) {
+                return res.status(400).json({
+                    message: "Existem campos vazios, preencha-os."
+                })
+            }
             return res.status(201).json({
                 message: "Usuário criado com sucesso.",
                 userCreate,

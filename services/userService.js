@@ -24,6 +24,12 @@ export default class userService {
 
     async createUser(userData) {
         try {
+            const { Name, Email, Password } = userData;
+
+            if(!Name || !Email || !Password) {
+                return null;
+            }
+
             const userCreated = await repository.createUser(userData);
             return userCreated;
         } catch (err) {
