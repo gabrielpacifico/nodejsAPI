@@ -11,7 +11,7 @@ export default class productRepository {
             });
             return products;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -23,7 +23,7 @@ export default class productRepository {
 
             return product;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -40,7 +40,7 @@ export default class productRepository {
 
             return product;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -52,7 +52,7 @@ export default class productRepository {
 
             return newProduct;
         } catch (err) {
-            throw new Error(`Erro ao criar um novo produto -> ${err.message}`);
+            throw err;
         }
     }
 
@@ -65,7 +65,7 @@ export default class productRepository {
 
             return updateProduct;
         } catch (err) {
-            throw new Error(`Erro ao editar o produto -> ${err.message}`);
+            throw err;
         }
     }
 
@@ -77,7 +77,7 @@ export default class productRepository {
 
             return deletedProduct;
         } catch (err) {
-            throw new Error(`Erro ao deletar o produto -> ${err.message}`);
+            throw err;
         }
     }
 }

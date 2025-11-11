@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const prisma = new PrismaClient();
 
 export default class userRepository {
@@ -11,7 +13,7 @@ export default class userRepository {
             });
             return users;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -23,7 +25,20 @@ export default class userRepository {
             
             return user;
         } catch (err) {
-            throw new Error(err);
+            throw err;
+        }
+    }
+
+    async getUserByEmail(userEmail) {
+        try {
+            const user = await prisma.users.findUnique({
+                where: { Email: userEmail }
+            });
+
+            return user;
+        } catch (err) {
+            console.log(err);
+            throw err;
         }
     }
 
@@ -41,7 +56,22 @@ export default class userRepository {
 
             return newUser;
         } catch (err) {
-            throw new Error(`Erro ao criar um novo usuário -> ${err.message}`);
+            throw err;
+        }
+    }
+
+    async loginUser(userData) {
+        try {
+            const token = jwt.sign(
+                { id: userData.Id },
+                JWT_SECRET_KEY,
+                { expiresIn: '2m' }
+            );
+
+            return token;
+
+        } catch (err) {
+            throw err;
         }
     }
 
@@ -54,7 +84,7 @@ export default class userRepository {
 
             return updateUser;
         } catch (err) {
-            throw new Error(`Erro ao editar o usuário -> ${err.message}`);
+            throw err;
         }
     }
 
@@ -66,7 +96,7 @@ export default class userRepository {
             
             return deletedUser;
         } catch (err) {
-            throw new Error(`Erro ao deletar o usuário -> ${err.message}`);
+            throw err;
         }
     }
 }
