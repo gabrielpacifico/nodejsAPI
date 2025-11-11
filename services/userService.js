@@ -32,6 +32,13 @@ export default class userService {
     async getUserByEmail(userEmail) {
         try {
             const user = await repository.getUserByEmail(userEmail);
+
+            if(!user) {
+                const error = new Error("Não existe usuário com o e-mail informado.");
+                error.statusCode = 404;
+                throw error;
+            }
+            
             return user;
         } catch (err) {
             throw err;

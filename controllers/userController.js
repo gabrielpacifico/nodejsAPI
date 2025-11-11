@@ -20,12 +20,6 @@ export default class UserController {
             const { userEmail } = req.params;
             const searchUser = await service.getUserByEmail(userEmail);
 
-            if(!searchUser) {
-                return res.status(404).json({
-                    message: `Usuário com Email: ${userEmail} não foi encontrado.`
-                });
-            }
-
             return res.status(200).json(searchUser);
     }
 
