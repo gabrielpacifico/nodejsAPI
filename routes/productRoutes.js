@@ -1,8 +1,11 @@
 import express from "express";
 import ProductController from "../controllers/productController.js";
+import auth from "../middlewares/auth.js";
 
 const router = express.Router();
 const productController = new ProductController();
+
+router.use(auth);
 
 router.get('/', productController.getProducts);
 router.get('/:productId', productController.getProductById);

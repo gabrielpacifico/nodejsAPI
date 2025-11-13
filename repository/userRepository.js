@@ -65,7 +65,7 @@ export default class userRepository {
             const token = jwt.sign(
                 { id: userData.Id },
                 JWT_SECRET_KEY,
-                { expiresIn: '2m' }
+                { expiresIn: '30m' }
             );
 
             return token;
